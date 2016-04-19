@@ -1,13 +1,15 @@
-#xaxis .domain
-{
-	fill:none;
-	stroke:#000;
+.header {
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 24px;
+	width: 100%;
+	text-align: center;
 }
-#xaxis text, #yaxis text
-{
-  font-size: 12px;
+.subheader{
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+	font-size: 24px;
+	width: 100%;
+	text-align: left;
 }
-
 body {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     width: 1120px;
@@ -19,13 +21,14 @@ body {
     display: table;
     clear: both;
 }
+/* Page 1 */
 #navbar {
 	margin: 10px 0 20px 0;
 }
 #navbar div {
 	background-color: #333;
 	color: white;
-	width: 33%;
+	width: 32%;
 	padding: 5px;
 	/*margin: 1px;*/
 	cursor: pointer;
@@ -34,7 +37,9 @@ body {
 	text-align: center;
 }
 #navbar .selected {
-	background-color: #551C85;
+	/*background-color: #551C85;*/
+	/*background-color: #0D4697; */
+	background-color: #F50023;
 }
 
 #wrapper {
@@ -64,7 +69,8 @@ body {
 }
 
 #menu .selected {
-	background-color: #551C85;
+	/*background-color: #551C85;*/
+	background-color: #F50023;
 }
 
 div.player {
@@ -84,7 +90,8 @@ div.label {
 div.bar {
 	float: left;
 	/*position: absolute;*/
-	background-color: #225D23;
+	/*background-color: #225D23;*/
+	background-color: #0D4697;
 	/*margin-left: 100px;*/
 }
 
@@ -94,4 +101,110 @@ div.value {
 	font-size: 11px;
 	font-weight: bold;
 	color: #666;
+}
+/* Page 2 */
+#breakdownChart {
+	position: relative;
+	height: 575px;
+	margin: 10px;
+}
+
+#breakdownMenu {
+	margin: 10px;
+}
+
+#breakdownMenu div {
+	background-color: #333;
+	color: white;
+	width: 150px;
+	padding: 5px;
+	margin: 1px;
+	cursor: pointer;
+	float: left;
+	text-align: center;
+}
+
+/*#menu div.selected {
+	background-color: #777;
+}
+*/
+div.team {
+	position: absolute;
+	/*background-color: #225D23;*/
+	background-color: #0D4697;
+	text-align: center;
+	color: white;
+	cursor: pointer;
+}
+
+#breakdownMenu .selected, #breakdownChart .selected {
+	/*background-color: #551C85;*/
+	background-color: #F50023;
+}
+
+div.team div.name {
+	font-size: 9px;
+	font-weight: 400;
+	padding-top: 3px;
+}
+
+div.team div.breakdownValue {
+	font-size: 24px;
+	font-weight: 400;
+	padding-top: 7px;
+}
+
+/*#title
+{
+	margin: 0 0 50px 10px;
+}*/
+
+/* Page 3 */
+#circleChart {
+  height: 750px;
+  margin-left: 60px;
+}
+
+text {
+	fill: white;
+	font-size: 11px;
+	text-anchor: middle;
+	font-weight: 800;
+	cursor: pointer;
+}
+
+#round-labels text {
+	font-size: 20px;
+	fill: #597459;
+}
+
+#result {
+  position: absolute;
+  left: 680px;
+  top: 20px;
+  width: 400px;
+  font-size: 18px;
+  font-weight: 200;
+}
+
+#score {
+  position: absolute;
+  left: 680px;
+  top: 40px;
+  width: 400px;
+  font-size: 30px;
+  font-weight: 500;
+}
+svg {
+    width: 820px;
+    height: 820px;
+    font-family: helvetica, sans-serif;
+}
+
+path, line {
+    /*fill: #225D23;*/
+		fill: #0D4697;
+    stroke: #eee;
+    stroke-width: 0.5px;
+    cursor: pointer;
 }
