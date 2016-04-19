@@ -1,0 +1,97 @@
+#xaxis .domain
+{
+	fill:none;
+	stroke:#000;
+}
+#xaxis text, #yaxis text
+{
+  font-size: 12px;
+}
+
+body {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    width: 1120px;
+    margin: 0 auto;
+    font-size: 14px;
+}
+.group:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+#navbar {
+	margin: 10px 0 20px 0;
+}
+#navbar div {
+	background-color: #333;
+	color: white;
+	width: 33%;
+	padding: 5px;
+	/*margin: 1px;*/
+	cursor: pointer;
+	/*float: left;*/
+  display: inline-block;
+	text-align: center;
+}
+#navbar .selected {
+	background-color: #551C85;
+}
+
+#wrapper {
+    position: relative;
+}
+#chart
+{
+	position: relative;
+	height: 680px;
+	margin: 10px;
+	font-family: helvetica, sans-serif;
+}
+#menu {
+	margin: 10px 0 20px 0;
+}
+
+#menu div {
+	background-color: #333;
+	color: white;
+	width: 150px;
+	padding: 5px;
+	margin: 1px;
+	cursor: pointer;
+	float: left;
+  /*display: inline-block;*/
+	text-align: center;
+}
+
+#menu .selected {
+	background-color: #551C85;
+}
+
+div.player {
+	position: absolute;
+}
+
+div.label {
+	float: left;
+	/*position: absolute;*/
+	width: 95px;
+	font-size: 12px;
+	text-align: right;
+	padding: 4px 5px 0 0;
+	color: #333;
+}
+
+div.bar {
+	float: left;
+	/*position: absolute;*/
+	background-color: #225D23;
+	/*margin-left: 100px;*/
+}
+
+div.value {
+	float: left;
+	padding: 4px 0 0 3px;
+	font-size: 11px;
+	font-weight: bold;
+	color: #666;
+}
