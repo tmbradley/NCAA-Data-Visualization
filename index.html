@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="style.css">
 <script src="app.js"></script>
 
-<p class="header">Are you a March 1st fan? Haven't seen a game all year? Well don't worry, we didn't miss any!</p>
+<p class="header">Playing March Madness? Haven't seen a game all year? Well don't worry, we didn't miss any!</p>
 
 <div id="navbar">
   <div id="page1Div" class="selected">Win & Where</div>
@@ -35,8 +35,7 @@
      document.getElementById('subheader2').style.display = 'none';
 
      document.getElementById('circleChart').style.display = 'none';
-     document.getElementById('result').style.display = 'none';
-     document.getElementById('score').style.display = 'none';
+     document.getElementById('main').style.display = 'none';
      document.getElementById('subheader3').style.display = 'none';
   });
 
@@ -58,8 +57,7 @@
      document.getElementById('subheader2').style.display = 'block';
 
      document.getElementById('circleChart').style.display = 'none';
-     document.getElementById('result').style.display = 'none';
-     document.getElementById('score').style.display = 'none';
+     document.getElementById('main').style.display = 'none';
      document.getElementById('subheader3').style.display = 'none';
   });
 
@@ -81,8 +79,7 @@
      document.getElementById('subheader2').style.display = 'none';
 
      document.getElementById('circleChart').style.display = 'block';
-     document.getElementById('result').style.display = 'block';
-     document.getElementById('score').style.display = 'block';
+     document.getElementById('main').style.display = 'block';
      document.getElementById('subheader3').style.display = 'block';
   });
 </script>
@@ -110,13 +107,24 @@
   <div id="breakdownChart" style="display: none"></div>
 
   <!-- Page 3 -->
-  <div id="circleChart">
-		<svg>
-		</svg>
-	</div>
+  <div id="circleChart" style="display: none"> </div>
+  <section id="main" class="main" style="display: none">
+      <div class="wrapper-demo">
+        <div id="dd" class="wrapper-dropdown-1" tabindex="1">
+          <span id="t1Data">Team 1</span>
+            <ul id="selectTeam1" class="dropdown" tabindex="1">
+            </ul>
+        </div>
+      ​</div>
 
-	<div id="result"></div>
-	<div id="score"></div>
+      <div class="wrapper-demo">
+        <div id="ff" class="wrapper-dropdown-2" tabindex="1">
+          <span id="t2Data">Team 2</span>
+            <ul id="selectTeam2" class="dropdown" tabindex="1">
+            </ul>
+        </div>
+      ​</div>
+  	</section>
 
 </div>
 
@@ -317,59 +325,336 @@
   });
 </script>
 
-<!-- <script>
-  d3.json('data/tree.json', function(err, root) {
-    // console.log(root);
-    var chart = svg.append('g');
-    chart.datum(root).selectAll('g')
-      .data(partition.nodes)
-      .enter()
-      .append('g');
+<!-- Third View !-->
 
-    // We use three groups: segments, round labels & player labels. This is to achieve a layering effect.
+<script>
+  function populateDropdown1 ()
+  {
+    var select = document.getElementById("selectTeam1");
+    var options = teamNames;
+    for(var i = 0; i < options.length; i++) {
+      var opt = options[i];
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.textContent = opt;
+      a.value = opt;
+      a.href = "#";
+      a.class = "element"
+      li.appendChild(a);
+      select.appendChild(li);
+    }
+    setupDropDown1();
+  }
 
-    // Segments
-    chart.selectAll('g')
-      .append('path')
-      .attr('d', arc)
-      .on('mouseover', playerHover);
+  function populateDropdown2 ()
+  {
+    var select = document.getElementById("selectTeam2");
+    var options = teamNames;
+    for(var i = 0; i < options.length; i++) {
+      var opt = options[i];
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.textContent = opt;
+      a.value = opt;
+      a.href = "#";
+      a.class = "element"
+      li.appendChild(a);
+      select.appendChild(li);
+    }
+    setupDropDown2();
+  }
+</script>
 
-    // Round labels
-    var rounds = ['Round 1', 'Round 2', 'Round 3', 'Round 4', 'Quarter finals', 'Semi finals', 'Final'];
-    var roundLabels = svg.append('g').attr('id', 'round-labels');
-    roundLabels.selectAll('path')
-      .data(rounds)
-      .enter()
-      .append('path')
-      .attr('d', function(d, i) {
-        var offset = (numRounds - i + 0.5) * segmentWidth - 10;
-        return arcSVG(-offset, 0, offset, offset, 0, 1, 1, offset, 0);
-      })
-      .style({'fill': 'none', 'stroke': 'none'})
-      .attr('id', function(d, i) {return 'round-label-'+ +(i+1);});
+<script type="text/javascript">
+  function setupDropDown1()
+  {
+    function DropDown(el) {
+      this.dd = el;
+      this.placeholder = this.dd.children('span');
+      this.opts = this.dd.find('ul.dropdown > li');
+      this.val = '';
+      this.index = -1;
+      this.initEvents();
+    }
+    DropDown.prototype = {
+      initEvents : function() {
+        var obj = this;
 
-    roundLabels.selectAll('text')
-      .data(rounds)
-      .enter()
-      .append('text')
-      .append('textPath')
-      .attr('xlink:href', function(d, i) {return '#round-label-'+ +(i+1);})
-      .attr('startOffset', '50%')
-      .text(function(d) {return d;});
+        obj.dd.on('click', function(event){
+          $(this).toggleClass('active');
+          return false;
+        });
 
+        obj.opts.on('click',function(){
+          var opt = $(this);
+          obj.val = opt.text();
+          obj.index = opt.index();
+          obj.placeholder.text('Team 1: ' + obj.val);
+          updateTeams();
+        });
+      },
+      getValue : function() {
+        return this.val;
+      },
+      getIndex : function() {
+        return this.index;
+      }
+    }
 
-    // Player labels
-    var playerLabels = svg.append('g').attr('id', 'player-labels');
-    playerLabels.datum(root).selectAll('g')
-      .data(partition.nodes)
-      .enter()
-      .append('text')
-      .text(function(d, i) {return i === 0 ? surname(d) : d.name.slice(0, 3);})
-      .attr('transform', label)
-      .attr('dy', '0.4em')
-      .attr('class', function(d) {return surname(d)+' round-'+ +(d.round);});
+    $(function() {
 
-  });
-</script> -->
+      var dd = new DropDown( $('#dd') );
+
+      $(document).click(function() {
+        // all dropdowns
+        $('.wrapper-dropdown-1').removeClass('active');
+      });
+
+    });
+  }
+
+  function setupDropDown2()
+  {
+    function DropDown(el) {
+      this.dd = el;
+      this.placeholder = this.dd.children('span');
+      this.opts = this.dd.find('ul.dropdown > li');
+      this.val = '';
+      this.index = -1;
+      this.initEvents();
+    }
+    DropDown.prototype = {
+      initEvents : function() {
+        var obj = this;
+
+        obj.dd.on('click', function(event){
+          $(this).toggleClass('active');
+          return false;
+        });
+
+        obj.opts.on('click',function(){
+          var opt = $(this);
+          obj.val = opt.text();
+          obj.index = opt.index();
+          obj.placeholder.text('Team 2: ' + obj.val);
+          updateTeams();
+        });
+      },
+      getValue : function() {
+        return this.val;
+      },
+      getIndex : function() {
+        return this.index;
+      }
+    }
+
+    $(function() {
+
+      var dd = new DropDown( $('#ff') );
+
+      $(document).click(function() {
+        // all dropdowns
+        $('.wrapper-dropdown-2').removeClass('active');
+      });
+
+    });
+  }
+  </script>
+
+<script>
+var n = 8, // number of samples
+m = 2; // number of series
+
+var rows;
+var teams = [];
+var filteredTeams = [];
+var teamNames = [];
+d3.csv("2015NCAAData_Full.csv", function(loadedRows) {
+rows = loadedRows;
+doSomethingWithRows();
+});
+
+function doSomethingWithRows()
+{
+for (var key in rows)
+{
+  var teamArray = [];
+  var obj = rows[key];
+  for (var prop in obj)
+  {
+      if(isNumber(+obj[prop]))
+      {
+        obj[prop] = +obj[prop];
+      }
+
+      if(prop == 'PPG' || prop == 'Opt_PPG')
+      {
+        obj[prop] = obj[prop]/100;
+      }
+      else if(prop == 'RPG' || prop == 'Opt_RPG')
+      {
+        obj[prop] = obj[prop]/50;
+      }
+      else if(prop == 'APG' || prop == 'Opt_APG')
+      {
+        obj[prop] = obj[prop]/20;
+      }
+      else if(prop == 'FG' || prop == 'Opt_FG')
+      {
+        obj[prop] = obj[prop]/1;
+      }
+      teamArray.push(obj[prop]);
+  }
+  teams.push(teamArray);
+}
+console.log(teams);
+filterTeams();
+drawChart();
+populateDropdown1();
+populateDropdown2();
+}
+
+function drawChart()
+{
+var margin = {top: 20, right: 30, bottom: 30, left: 40},
+  width = 960 - margin.left - margin.right,
+  height = 500 - margin.top - margin.bottom;
+
+var y = d3.scale.linear()
+  .domain([0, 1])
+  .range([height, 0]);
+
+var x0 = d3.scale.ordinal()
+  .domain(d3.range(n))
+  .rangeBands([0, width], .2);
+
+var x1 = d3.scale.ordinal()
+  .domain(d3.range(m))
+  .rangeBands([0, x0.rangeBand()]);
+
+var z = d3.scale.ordinal()
+    .domain([0,1])
+    .range(["#0D4697","#F50023"])
+
+var xAxis = d3.svg.axis()
+  .scale(x0)
+  .tickFormat(function(d){
+    if(d == 0)
+    {
+      return "PPG";
+    }
+    else if(d == 1)
+    {
+      return "RPG";
+    }
+    else if(d == 2)
+    {
+      return "APG";
+    }
+    else if(d == 3)
+    {
+      return "FG %";
+    }
+    else if(d == 4)
+    {
+      return "Opp_PPG";
+    }
+    else if(d == 5)
+    {
+      return "Opp_RPG";
+    }
+    else if(d == 6)
+    {
+      return "Opp_APG";
+    }
+    else if(d == 7)
+    {
+      return "Opp_FG %";
+    }
+    })
+  .orient("bottom");
+
+var yAxis = d3.svg.axis()
+  .scale(y)
+  .orient("left");
+
+var svg = d3.select("#circleChart").append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("svg:g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg.append("g")
+  .attr("class", "y axis")
+  .call(yAxis);
+
+svg.append("g")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + height + ")")
+  .call(xAxis);
+
+svg.append("g").selectAll("g")
+  .data(filteredTeams)
+  .enter().append("g")
+  .style("fill", function(d, i) { return z(i); })
+  .attr("transform", function(d, i) { return "translate(" + x1(i) + ",0)"; })
+  .selectAll("rect")
+  .data(function(d) { return d; })
+  .enter().append("rect")
+  .attr("width", x1.rangeBand())
+  .attr("height", y)
+  .attr("x", function(d, i) { return x0(i); })
+  .attr("y", function(d) { return height - y(d); });
+}
+
+function filterTeams()
+{
+var s1 = document.getElementById("t1Data");
+var s2 = document.getElementById("t2Data");
+var team1 = s1.innerText.slice(8,s1.innerText.length);
+var team2 = s2.innerText.slice(8,s2.innerText.length);;
+
+filteredTeams = [];
+for(var i=0;i<teams.length;i++)
+{
+  var team = teams[i];
+  teamNames.push(team[0]);
+  if(team[0] == team1)
+  {
+
+    team = team.slice(1, 9);
+    filteredTeams.push(team);
+  }
+}
+
+for(var i=0;i<teams.length;i++)
+{
+  var team = teams[i];
+  teamNames.push(team[0]);
+  if(team[0] == team2)
+  {
+
+    team = team.slice(1, 9);
+    filteredTeams.push(team);
+  }
+}
+console.log(filteredTeams);
+}
+function updateTeams()
+{
+filterTeams();
+updateCircleChart();
+}
+function updateCircleChart()
+{
+var svg = d3.select("#circleChart").selectAll("svg");
+svg.remove();
+drawChart();
+}
+function isNumber(obj)
+{
+return !isNaN(parseFloat(obj))
+}
+</script>
 
 </body>
