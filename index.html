@@ -630,7 +630,6 @@ for(var i=0;i<teams.length;i++)
 for(var i=0;i<teams.length;i++)
 {
   var team = teams[i];
-  teamNames.push(team[0]);
   if(team[0] == team2)
   {
 
@@ -638,6 +637,7 @@ for(var i=0;i<teams.length;i++)
     filteredTeams.push(team);
   }
 }
+teamNames.sort();
 console.log(filteredTeams);
 }
 function updateTeams()
