@@ -1,20 +1,22 @@
 .header {
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
-	font-size: 24px;
+	font-weight: bold;
+	font-size: 36px;
 	width: 100%;
 	text-align: center;
 }
 .subheader{
 	font-family: "Helvetica Neue", Helvetica, sans-serif;
-	font-size: 24px;
+	font-size: 20px;
 	width: 100%;
-	text-align: left;
+	text-align: center;
 }
 body {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     width: 1120px;
     margin: 0 auto;
     font-size: 14px;
+		background-color: #E9F2F9;
 }
 .group:after {
     content: "";
@@ -39,7 +41,7 @@ body {
 #navbar .selected {
 	/*background-color: #551C85;*/
 	/*background-color: #0D4697; */
-	background-color: #F50023;
+	background-color: #009473;
 }
 
 #wrapper {
@@ -54,6 +56,8 @@ body {
 }
 #menu {
 	margin: 10px 0 20px 0;
+	position: relative;
+	left: 35%;
 }
 
 #menu div {
@@ -70,7 +74,7 @@ body {
 
 #menu .selected {
 	/*background-color: #551C85;*/
-	background-color: #F50023;
+	background-color: #009473;
 }
 
 div.player {
@@ -105,12 +109,14 @@ div.value {
 /* Page 2 */
 #breakdownChart {
 	position: relative;
-	height: 575px;
+	height: 300px;
 	margin: 10px;
 }
 
 #breakdownMenu {
 	margin: 10px;
+	position: relative;
+	left: 12%;
 }
 
 #breakdownMenu div {
@@ -139,7 +145,7 @@ div.team {
 
 #breakdownMenu .selected, #breakdownChart .selected {
 	/*background-color: #551C85;*/
-	background-color: #F50023;
+	background-color: #009473;
 }
 
 div.team div.name {
@@ -253,6 +259,9 @@ div.team div.breakdownValue {
 .wrapper-dropdown-1.active .dropdown {
     opacity: 1;
     pointer-events: auto;
+		height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
 }
 
 .wrapper-dropdown-1.active:after {
@@ -279,7 +288,7 @@ div.team div.breakdownValue {
     /*margin: 0 auto;*/
 
     /* Styles */
-    background: #F50023;
+    background: #009473;
     color: #fff;
     outline: none;
     cursor: pointer;
@@ -334,21 +343,39 @@ div.team div.breakdownValue {
 .wrapper-dropdown-2.active .dropdown {
     opacity: 1;
     pointer-events: auto;
+		height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
 }
 
 .wrapper-dropdown-2.active:after {
-    border-color: #F50023 transparent;
+    border-color: #009473 transparent;
     border-width: 6px 6px 0 6px ;
     margin-top: -3px;
 }
 
 .wrapper-dropdown-2.active {
-  background: #F50023;
-  background: -moz-linear-gradient(left,  #F50023 0%, #F50023 78%, #ffffff 78%, #ffffff 100%);
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#F50023), color-stop(78%,#F50023), color-stop(78%,#ffffff), color-stop(100%,#ffffff));
-  background: -webkit-linear-gradient(left,  #F50023 0%,#F50023 78%,#ffffff 78%,#ffffff 100%);
-  background: -o-linear-gradient(left,  #F50023 0%,#F50023 78%,#ffffff 78%,#ffffff 100%);
-  background: -ms-linear-gradient(left,  #F50023 0%,#F50023 78%,#ffffff 78%,#ffffff 100%);
-  background: linear-gradient(to right,  #F50023 0%,#F50023 78%,#ffffff 78%,#ffffff 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F50023', endColorstr='#ffffff',GradientType=1 );
+  background: #009473;
+  background: -moz-linear-gradient(left,  #009473 0%, #009473 78%, #ffffff 78%, #ffffff 100%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%,#009473), color-stop(78%,#009473), color-stop(78%,#ffffff), color-stop(100%,#ffffff));
+  background: -webkit-linear-gradient(left,  #009473 0%,#009473 78%,#ffffff 78%,#ffffff 100%);
+  background: -o-linear-gradient(left,  #009473 0%,#009473 78%,#ffffff 78%,#ffffff 100%);
+  background: -ms-linear-gradient(left,  #009473 0%,#009473 78%,#ffffff 78%,#ffffff 100%);
+  background: linear-gradient(to right,  #009473 0%,#009473 78%,#ffffff 78%,#ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#009473', endColorstr='#ffffff',GradientType=1 );
+}
+#Page2Details{
+	position: relative;
+	left: 15%;
+	font-size: 12px;
+}
+#Page3Details{
+	position: relative;
+	left: 15%;
+	font-size: 12px;
+}
+#SubPage3Details{
+	position: relative;
+	left: 1%;
+	font-size: 12px;
 }

@@ -8,12 +8,12 @@
 <link rel="stylesheet" href="style.css">
 <script src="app.js"></script>
 
-<p class="header">Playing March Madness? Haven't seen a game all year? Well don't worry, we didn't miss any!</p>
+<p class="header">Manage the Madness</p>
 
 <div id="navbar">
-  <div id="page1Div" class="selected">Win & Where</div>
-  <div id="page2Div" class="">The more you know</div>
-  <div id="page3Div" class="">How far should they go?</div>
+  <div id="page1Div" class="selected">Win & You're in</div>
+  <div id="page2Div" class="">The More You Know</div>
+  <div id="page3Div" class="">Head to Head</div>
 </div>
 
 <script type="text/javascript">
@@ -33,10 +33,13 @@
      document.getElementById('breakdownMenu').style.display = 'none';
      document.getElementById('breakdownChart').style.display = 'none';
      document.getElementById('subheader2').style.display = 'none';
+     document.getElementById('Page2Details').style.display = 'none';
 
      document.getElementById('circleChart').style.display = 'none';
      document.getElementById('main').style.display = 'none';
      document.getElementById('subheader3').style.display = 'none';
+     document.getElementById('Page3Details').style.display = 'none';
+     document.getElementById('SubPage3Details').style.display = 'none';
   });
 
   $('#page2Div').on("click", function (event) {
@@ -55,10 +58,13 @@
      document.getElementById('breakdownMenu').style.display = 'block';
      document.getElementById('breakdownChart').style.display = 'block';
      document.getElementById('subheader2').style.display = 'block';
+     document.getElementById('Page2Details').style.display = 'block';
 
      document.getElementById('circleChart').style.display = 'none';
      document.getElementById('main').style.display = 'none';
      document.getElementById('subheader3').style.display = 'none';
+     document.getElementById('Page3Details').style.display = 'none';
+     document.getElementById('SubPage3Details').style.display = 'none';
   });
 
   $('#page3Div').on("click", function (event) {
@@ -77,18 +83,21 @@
      document.getElementById('breakdownMenu').style.display = 'none';
      document.getElementById('breakdownChart').style.display = 'none';
      document.getElementById('subheader2').style.display = 'none';
+     document.getElementById('Page2Details').style.display = 'none';
 
      document.getElementById('circleChart').style.display = 'block';
      document.getElementById('main').style.display = 'block';
      document.getElementById('subheader3').style.display = 'block';
+     document.getElementById('Page3Details').style.display = 'block';
+     document.getElementById('SubPage3Details').style.display = 'block';
   });
 </script>
 
 <div class="wrapper">
   <!-- Page 1 -->
-  <p id="subheader1" class="subheader">Find out who was winning the most!</p>
-  <p id="subheader2" class="subheader" style="display:none">Find out a little more!</p>
-  <p id="subheader3" class="subheader" style="display:none">See where your team should fit in based on history!</p>
+  <p id="subheader1" class="subheader">Sometimes it's obvious...<br><span style="color:#009473;font-weight:bold;font-size:24px;">teams that win in the regular season also win in the tournament.</span></p>
+  <p id="subheader2" class="subheader" style="display:none">Select a team(s) and follow their stats</p>
+  <p id="subheader3" class="subheader" style="display:none">Compare two teams side by side</p>
 
   <div id="menu" class="group">
     <div class="selected">Wins</div>
@@ -101,14 +110,20 @@
     <div class="selected">PPG</div>
     <div>RPG</div>
     <div>APG</div>
-    <div>FG</div>
+    <div>FG %</div>
     <div>Round Eliminated</div>
   </div>
   <div id="breakdownChart" style="display: none"></div>
 
+  <pre id="Page2Details" style="display:none">PPG = Points per game     RPG = Rebounds per game     APG = Assists per game     FG % = Field Goal Percentage</pre>
+
   <!-- Page 3 -->
   <div id="circleChart" style="display: none"> </div>
-  <section id="main" class="main" style="display: none">
+
+  <pre id="Page3Details" style="display:none">PPG = Points per game     RPG = Rebounds per game     APG = Assists per game     FG % = Field Goal Percentage</pre>
+  <pre id="SubPage3Details" style="display:none">Oppt_PPG = Opponent Points per game     Oppt_RPG = Opponent Rebounds per game     Oppt_APG = Opponent Assists per game     Opp_FG % = Opponent Field Goal Percentage</pre>
+
+  <section id="main" class="main" style="display: none;position: relative;left: 19%;">
       <div class="wrapper-demo">
         <div id="dd" class="wrapper-dropdown-1" tabindex="1">
           <span id="t1Data">Team 1</span>
@@ -125,6 +140,7 @@
         </div>
       ​</div>
   	</section>
+
 
 </div>
 
@@ -165,7 +181,7 @@
     d3.select('#chart')
       .selectAll('div.bar')
       .transition()
-      .duration(2000)
+      .duration(1000)
       .style('width', function(d) {
         return px(yScale(d[parameter1]));
       });
@@ -173,7 +189,7 @@
     d3.select('#chart')
       .selectAll('div.value')
       .transition()
-      .duration(2000)
+      .duration(1000)
       .tween("text", function(d) {
         // Thanks to http://stackoverflow.com/questions/13454993/increment-svg-text-with-transistion
         var i = d3.interpolate(this.textContent, d[parameter1]);
@@ -227,12 +243,12 @@
 </script>
 
 <script>
-  var radius = 35, padding = 1, cols = 16, parameter = 'PPG';
+  var radius = 34, padding = 1, cols = 16, parameter = 'PPG';
   var menu = [
     {id: 'PPG', name: 'PPG'},
     {id: 'RPG', name: 'RPG'},
     {id: 'APG', name: 'APG'},
-    {id: 'FG', name: 'FG'},
+    {id: 'FG', name: 'FG %'},
     {id: 'Round_Eliminated', name: 'Round Eliminated'}
   ];
 
@@ -259,7 +275,7 @@
       .selectAll('div.team')
       .sort(function(a, b) {return parameter === 'ranking' ? d3.ascending(+a[parameter], +b[parameter]) : d3.descending(+a[parameter], +b[parameter]);})
       .transition()
-      .duration(2000)
+      .duration(1000)
       .style('left', function(d, i) {
         var col = i % cols;
         var x = 2 * col * (radius + padding);
@@ -312,8 +328,6 @@
     updateChart();
 
     // Menu
-    console.log(d3.select('#breakdownMenu')
-      .selectAll('div'));
     d3.select('#breakdownMenu')
       .selectAll('div')
       .data(menu)
@@ -534,7 +548,7 @@ var x1 = d3.scale.ordinal()
 
 var z = d3.scale.ordinal()
     .domain([0,1])
-    .range(["#0D4697","#F50023"])
+    .range(["#0D4697","#009473"])
 
 var xAxis = d3.svg.axis()
   .scale(x0)
